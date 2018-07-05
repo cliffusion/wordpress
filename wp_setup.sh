@@ -104,6 +104,6 @@ curl -isk http://127.0.0.1/wordpress/
 ### such as mod_host, mod_rewrite, and others that wordpress may required
 ### - wp-config should also turn off define('FS_METHOD', 'direct') and restart to prevent php direct update
 ### for fear for possibility of vulnerability modification
-### Website should generate a cert for SSL could use selfsign as a temporary means but ultimately to use purchase SSL.
+### - Website should generate a cert for SSL could use selfsign as a temporary means but ultimately to use purchased SSL
 
 echo "Wordpress Setup Completed"
