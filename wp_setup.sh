@@ -27,22 +27,22 @@ fi
 ### Install the LAMP requirements for the centos7 ###
 echo "Installing required LAMP components"
 yum install httpd mariadb-server mariadb php php-mysql -y
-echo "INstaling LAMP completed"
+echo "Instaling LAMP completed"
 echo ""
 sleep 1
 
 ### startup and systemctl auto startup ###
-echo -n "Startup http and mariadb... "
+echo -n "Startup http and mariadb"
 systemctl enable httpd.service mariadb.service
 systemctl start httpd.service mariadb.service
 sudo firewall-cmd --add-service=http --permanent
 sudo firewall-cmd --reload
-echo "Done"
+echo "Startup Done"
 echo ""
 sleep 1
 
 ### Create DB info for wordpress ###
-echo "Create account and database in mariadb"
+echo "Create account and database in Mariadb"
 mysql -u root << EOF
 CREATE DATABASE ${WP_DB_NAME};
 CREATE USER ${WP_DB_USERNAME}@localhost IDENTIFIED BY '${WP_DB_PASSWORD}';
