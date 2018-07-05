@@ -102,5 +102,7 @@ curl -isk http://127.0.0.1/wordpress/
 ### - MariaDB should also be harden after setup completes
 ### - Apache should also be harden to allow only required core modules to startup
 ### such as mod_host, mod_rewrite, and others that wordpress may required
+### - wp-config should also turn off define('FS_METHOD', 'direct') and restart to prevent php direct update
+### for fear for possibility of vulnerability modification
 
 echo "Wordpress Setup Completed"
