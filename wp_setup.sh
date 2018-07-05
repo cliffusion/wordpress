@@ -80,7 +80,7 @@ sleep 1
 
 ### Complete Wordpress admin user setup ###
 echo "Setting Up WordPress user for the first time..."
-curl "http://$WP_DOMAIN/wordpress/wp-admin/install.php?step=2" \
+curl "http://127.0.0.1/wordpress/wp-admin/install.php?step=2" \
 --data-urlencode "weblog_title=$WP_DOMAIN"\
 --data-urlencode "user_name=$WP_ADMIN_USERNAME" \
 --data-urlencode "admin_email=$WP_ADMIN_EMAIL" \
