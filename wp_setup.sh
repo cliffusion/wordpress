@@ -20,27 +20,29 @@ WP_PATH="/var/www/html/wordpress"
 
 ### Validate if root is used ###
 if [ `whoami` != "root" ] ; then
-echo "Please run as root"
+echo "Please run ${0} as root"
 exit 0
 fi
 
 ### Install the LAMP requirements for the centos7 ###
-echo " Installing required LAMP components"
+echo "Installing required LAMP components"
 yum install httpd mariadb-server mariadb php php-mysql -y
-echo "Setup LAMP completed"
+echo "INstaling LAMP completed"
+echo ""
 sleep 1
 
 ### startup and systemctl auto startup ###
-echo " Startup http and mariadb"
+echo -n "Startup http and mariadb... "
 systemctl enable httpd.service mariadb.service
 systemctl start httpd.service mariadb.service
 sudo firewall-cmd --add-service=http --permanent
 sudo firewall-cmd --reload
-echo "Services startup done"
+echo "Done"
+echo ""
 sleep 1
 
 ### Create DB info for wordpress ###
-echo " Create account and database in mariadb"
+echo "Create account and database in mariadb"
 mysql -u root << EOF
 CREATE DATABASE ${WP_DB_NAME};
 CREATE USER ${WP_DB_USERNAME}@localhost IDENTIFIED BY '${WP_DB_PASSWORD}';
@@ -49,6 +51,7 @@ FLUSH PRIVILEGES;
 EOF
 echo "MariaDB setup creation completed"
 systemctl restart mariadb.service
+echo ""
 sleep 1
 
 ### Download wordpress from internet ###
@@ -56,10 +59,11 @@ echo "Downloading wordpress packages from internet"
 cd /var/www/html
 curl -O https://wordpress.org/latest.tar.gz
 echo "Download completed"
+echo ""
 sleep 1
 
 ### Setup and configuring wordpress ###
-echo " Setup and configuring wordpress"
+echo "Setup and configuring wordpress"
 tar xfz latest.tar.gz
 cd $WP_PATH
 echo "Configuring Account Credentials"
@@ -71,6 +75,8 @@ echo "define('FS_METHOD', 'direct');" >> wp-config.php
 
 chown -R apache:apache ${WP_PATH}
 echo "Wordpress configuration completed"
+echo ""
+sleep 1
 
 ### Complete Wordpress admin user setup ###
 echo "Setting Up WordPress user for the first time..."
@@ -81,6 +87,9 @@ curl "http://$WP_DOMAIN/wordpress/wp-admin/install.php?step=2" \
 --data-urlencode "admin_password=$WP_ADMIN_PASSWORD" \
 --data-urlencode "admin_password2=$WP_ADMIN_PASSWORD" \
 --data-urlencode "pw_weak=1"
+echo "Wordpress Account Setup Completed"
+echo ""
+sleep 1
 
 ### Validate the wordpress page ###
 curl -isk http://$WP_DOMAIN/wordpress/
