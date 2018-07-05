@@ -4,7 +4,7 @@ which the wp_setup.sh will perform installing. The script will also download lat
 wordpress tar file from wordpress.org and attempt to setup it using 127.0.0.1
 
 Assumptions:
-- Need Centos7
+- Need Centos7 and the person to perform this has some knowledge of linux
 - Need Centos7 connect to internert
 - Need to be accessible to wordpress.org
 - setup IP used is using 127.0.0.1
